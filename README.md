@@ -8,6 +8,9 @@ to build and run the app:
 ```
 This ended up being my preffered way to do it.
 
+When you made code changes, in the terminal stop the docker-compose using Ctrl-c
+and then rerun it by pressing the up arrow, to reuse the latest command and hit enter.
+
 In the future I will make it so the docker environment
 is going to build the app.
 
