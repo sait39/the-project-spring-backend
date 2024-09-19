@@ -1,20 +1,3 @@
-# build
-# - context: tells where to build db
-# - dockerfile: uses the dockerfile to build the image
-# env_file
-# - PROBABLY just provides the secrets for the image
-# ports:
-# - tells which port of the image is going to be bound
-#   the host
-# healthcheck:
-# - checks if a image is healthy by using the provided test
-#   in the given interval and with the given retries
-# - pg_isready is a PostgreSQL utility checks if its server is
-#   ready to accept connections, uses given user for the check
-# volumes:
-# - the upper db-data:/var/... binds the named volume db-data to the directory
-# - db-data is a named volume - defined at the bottom
-
 services:
   db:
     build:
@@ -32,6 +15,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       retries: 5
+
   app:
     build:
       context: .
@@ -40,14 +24,10 @@ services:
       - db
     ports:
       - "8080:8080"
-    volumes:
-      - ./build/libs/the-project-backend-0.0.1-SNAPSHOT.jar:/app/app.jar
-    entrypoint: ["java", "-jar", "app.jar"]
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      SPRING_PROFILES_ACTIVE: dev
 
 volumes:
   db-data:
