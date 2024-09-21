@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 @RestController
 public class TheProjectBackendApplication {
@@ -16,7 +20,11 @@ public class TheProjectBackendApplication {
 
 	@GetMapping("/hello")
 	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+		return String.format("HelloIIII %s!", name);
+	}
 
-		return String.format("Hello World %s!", name);
+	@GetMapping("/notes")
+	public String[] notes() {
+		return new String[]{"Hi", "Why", "Shy", "Bry", "Bongo"};
 	}
 }

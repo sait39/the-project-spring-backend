@@ -1,11 +1,20 @@
 # Commands
 
-to build and run the app:
+to build and run the app and the database:
 ```sh
-./gradlew build && docker-compose up
+./gradlew build && docker-compose up -d
 # OR for Windows Powershell
-.\gradlew.bat build; docker-compose up
+.\gradlew.bat build; docker-compose up -d
 ```
+
+Afterwards you can build and restart the app:
+```shell
+./gradlew build && docker-compose restart app
+# OR
+.\gradlew.bat build; docker-compose restart app
+```
+
+
 This ended up being my preffered way to do it.
 
 When you made code changes, in the terminal stop the docker-compose using Ctrl-c
@@ -13,6 +22,20 @@ and then rerun it by pressing the up arrow, to reuse the latest command and hit 
 
 In the future I will make it so the docker environment
 is going to build the app.
+
+### Database Management through CLI
+
+```shell
+# Get in the docker container running PostgreSQL with the shell
+docker exec -it <container_name_or_id> /bin/bash
+docker exec -it <container_name_or_id> /bin/sh
+
+# To find the name or id of the container
+docker ps
+
+# I think you can also give just part of the id and not the whole thing
+docker exec -it 869 /bin/bash # actually is 869a000...
+```
 
 # Troubleshooting 
 
