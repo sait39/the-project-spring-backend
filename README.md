@@ -76,4 +76,8 @@ docker build -t myapp:latest .
 docker run -d -p 8080:8080 --name myapp-container myapp:latest
 # But just use docker-compose files to avoid these cmd line things
 
+# If you are in early development there is also
+docker volume ls
+docker volume rm <volume_name>
+
 ```
