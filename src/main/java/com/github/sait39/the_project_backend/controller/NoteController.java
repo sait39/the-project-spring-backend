@@ -20,17 +20,18 @@ public class NoteController {
 
     @GetMapping("/notes")
     public List<Note> readNotes() {
-        return noteService.findAll();
+        return noteService.findAllNotes();
     }
 
     @GetMapping("/notes/{id}")
     public Note readNote(@PathVariable Long id) {
-        return noteService.findById(id);
+        return noteService.findNoteById(id);
     }
 
     @PostMapping("/notes")
-    public Note createNote(@RequestBody Note note) {
-        return noteService.save(note);
+    public Note createNote(@RequestBody NoteDto note) {
+        Note dto = new Note();
+        return noteService.saveNote(note);
     }
 
     @PutMapping("/notes/{id}")

@@ -16,21 +16,25 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     // Create or update
-    public Note save(Note note) {
+    public Note saveNote(NoteDto noteDto) {
+        Note note = new Note();
+        note.setTitle(noteDto.title());
+        note.setContent(noteDto.content());
+
         return noteRepository.save(note);
     }
 
     // Read
-    public Note findById(Long id) {
+    public Note findNoteById(Long id) {
         return noteRepository.findById(id).orElse(null);
     }
 
-    public List<Note> findAll() {
+    public List<Note> findAllNotes() {
         return noteRepository.findAll();
     }
 
     // Delete
-    public void deleteById(Long id) {
+    public void deleteNoteById(Long id) {
         noteRepository.deleteById(id);
     }
 
