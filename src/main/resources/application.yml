@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: The Project Backend
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: pass
+    url: jdbc:postgresql://localhost:5432/the_project_database
+  jpa:
+    hibernate:
+      ddl-auto: update
+  security:
+    user:
+      name: user
+      password: password
+  profiles:
+    active: dev
+  devtools:
+    restart:
+      enabled: true
+#      exclude: static/**, public/**
+
