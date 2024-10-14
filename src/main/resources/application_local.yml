@@ -3,25 +3,27 @@ spring:
     name: The Project Backend
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    url: ${SPRING_DATASOURCE_URL}
+    username: {}
+    password: pass
+    url: jdbc:postgresql://localhost:5432/the_project_database
   jpa:
     hibernate:
       ddl-auto: update
 #    database-platform: org.hibernate.dialect.PostgreSQLDialect
   security:
+    user:
+      name: user
+      password: password
     oauth2:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
-            client-authentication-method: client_secret_post
+            client-id: YOUR_GOOGLE_CLIENT_ID
+            client-secret: YOUR_GOOGLE_CLIENT_SECRET
             scope: profile, email
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
-            client-name: Google
+            client-authentication-method: post
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/auth

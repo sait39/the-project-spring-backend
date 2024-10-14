@@ -2,6 +2,7 @@ package com.github.sait39.the_project_backend.controller;
 
 import com.github.sait39.the_project_backend.dto.NoteDto;
 import com.github.sait39.the_project_backend.model.Note;
+import com.github.sait39.the_project_backend.model.User;
 import com.github.sait39.the_project_backend.service.NoteService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,12 @@ public class NoteController {
 
     @GetMapping("/notes")
     public List<Note> readNotes() {
-        return noteService.findAllNotes();
+        return noteService.getNotesForCurrentUser();
     }
 
     @GetMapping("/notes/{id}")
-    public Note readNote(@PathVariable Long id) {
-        return noteService.findNoteById(id);
+    public Note readNote(@PathVariable Long id, @PathVariable User user) {
+        return noteService.findNoteByIdAndUser(id, user);
     }
 
     @PostMapping("/notes")

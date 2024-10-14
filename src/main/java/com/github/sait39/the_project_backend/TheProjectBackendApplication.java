@@ -13,18 +13,7 @@ import java.util.List;
 @SpringBootApplication
 @RestController
 public class TheProjectBackendApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(TheProjectBackendApplication.class, args);
-	}
-
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("HelloIIII %s!", name);
-	}
-
-	@GetMapping("/notes")
-	public String[] notes() {
-		return new String[]{"Hi", "Why", "Shy", "Bry", "Bongo"};
 	}
 }

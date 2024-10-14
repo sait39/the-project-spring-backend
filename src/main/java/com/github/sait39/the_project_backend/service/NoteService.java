@@ -2,8 +2,11 @@ package com.github.sait39.the_project_backend.service;
 
 import com.github.sait39.the_project_backend.dto.NoteDto;
 import com.github.sait39.the_project_backend.model.Note;
+import com.github.sait39.the_project_backend.model.User;
 import com.github.sait39.the_project_backend.repository.NoteRepository;
+import com.github.sait39.the_project_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,9 @@ public class NoteService {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     // Create or update
     public Note saveNote(NoteDto noteDto) {
         Note note = new Note();
@@ -25,12 +31,19 @@ public class NoteService {
     }
 
     // Read
-    public Note findNoteById(Long id) {
-        return noteRepository.findById(id).orElse(null);
+    public Note findNoteByIdAndUser(Long id, User user) {
+        return noteRepository.findByIdAndUser(id, user);
     }
 
-    public List<Note> findAllNotes() {
-        return noteRepository.findAll();
+    public List<Note> getNotesForCurrentUser(OAuth2User principal) {
+        String email = principal.getAttribute("email");
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if (user.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+
+        return noteRepository.findByUser(user.get());
     }
 
     // Delete

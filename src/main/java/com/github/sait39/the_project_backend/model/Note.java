@@ -18,6 +18,11 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Long userId;
+
     private String title;
     private String content;
     private LocalDate createdDate;
