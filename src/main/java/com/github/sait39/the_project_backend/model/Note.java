@@ -21,7 +21,7 @@ public class Note {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Long userId;
+    private User user;
 
     private String title;
     private String content;

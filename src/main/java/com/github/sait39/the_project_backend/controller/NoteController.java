@@ -4,13 +4,16 @@ import com.github.sait39.the_project_backend.dto.NoteDto;
 import com.github.sait39.the_project_backend.model.Note;
 import com.github.sait39.the_project_backend.model.User;
 import com.github.sait39.the_project_backend.service.NoteService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 public class NoteController {
 
     private final NoteService noteService;
@@ -21,7 +24,13 @@ public class NoteController {
 
     @GetMapping("/notes")
     public List<Note> readNotes() {
-        return noteService.getNotesForCurrentUser();
+        // Retrieve the currently authenticated user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+
+        User user = oAuth2User.getAttribute("sub");
+
+        return noteService.getNotesForCurrentUser(user);
     }
 
     @GetMapping("/notes/{id}")

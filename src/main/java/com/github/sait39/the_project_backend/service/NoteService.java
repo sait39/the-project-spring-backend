@@ -35,15 +35,15 @@ public class NoteService {
         return noteRepository.findByIdAndUser(id, user);
     }
 
-    public List<Note> getNotesForCurrentUser(OAuth2User principal) {
-        String email = principal.getAttribute("email");
-        Optional<User> user = userRepository.findByEmail(email);
+    public List<Note> getNotesForCurrentUser(User user) {
 
-        if (user.isEmpty()) {
+        Optional<User> userFromDatabase = userRepository.findByEmail(user.getEmail());
+
+        if (userFromDatabase.isEmpty()) {
             throw new RuntimeException("User not found");
         }
 
-        return noteRepository.findByUser(user.get());
+        return noteRepository.findByUser(userFromDatabase.get());
     }
 
     // Delete
