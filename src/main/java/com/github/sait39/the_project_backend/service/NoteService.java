@@ -6,7 +6,6 @@ import com.github.sait39.the_project_backend.model.User;
 import com.github.sait39.the_project_backend.repository.NoteRepository;
 import com.github.sait39.the_project_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class NoteService {
         return noteRepository.findByIdAndUser(id, user);
     }
 
-    public List<Note> getNotesForCurrentUser(User user) {
+    public List<Note> getNotesForUser(User user) {
 
         Optional<User> userFromDatabase = userRepository.findByEmail(user.getEmail());
 

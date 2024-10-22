@@ -27,10 +27,11 @@ public class NoteController {
         // Retrieve the currently authenticated user
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println(oAuth2User);
 
         User user = oAuth2User.getAttribute("sub");
 
-        return noteService.getNotesForCurrentUser(user);
+        return noteService.getNotesForUser(user);
     }
 
     @GetMapping("/notes/{id}")
